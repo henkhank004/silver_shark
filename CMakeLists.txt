@@ -5,10 +5,8 @@ set(CMAKE_CXX_STANDARD 26)
 
 add_executable(silver_shark src/main.cpp
         src/engine/item.hpp
-        src/engine/string_id_table.hpp
         src/engine/data.hpp
         src/engine/data.cpp
-        src/engine/string_id_table.cpp
         src/error/error.hpp
         src/engine/id_table.hpp
         src/engine/recipe.hpp

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <expected>
-#include "string_id_table.hpp"
 #include "id_table.hpp"
 #include "recipe.hpp"
 
