@@ -8,8 +8,7 @@ namespace err {
         INCORRECT_TYPE,
         FILE_LOAD_FAILED,
         JSON_PARSE_FAILED,
-        ITEM_FIELD_MISSING,
-        RECIPE_FIELD_MISSING,
+        JSON_FIELD_MISSING,
         OUT_OF_BOUNDS
     };
 

@@ -2,20 +2,21 @@
 
 #include "item.hpp"
 #include "machine.hpp"
+#include <vector>
 
 namespace silver {
     using RecipeId = std::uint32_t;
-    using RecipeCategory = std::string;
     using CategoryId = std::uint32_t;
+    using RecipeCategory = std::string;
 
     struct Recipe {
         std::string key_name;
         RecipeId id;
         std::string name;
         CategoryId category;
-        std::uint32_t time;
-        std::vector<std::pair<ItemId, std::uint32_t>> ingredients;
-        std::vector<std::pair<ItemId, std::uint32_t>> products;
+        float time;
+        std::vector<std::pair<ItemId, float>> ingredients;
+        std::vector<std::pair<ItemId, float>> products;
     };
 
 }

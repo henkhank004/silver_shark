@@ -18,21 +18,20 @@ int main() {
     }
 
     {
-        auto res_import_machines = silver::engine::data::import_machines(machine_table, category_stringtable, DATAFILE);
+        auto res_import_machines = silver::engine::data::import_buildings(machine_table, category_stringtable, DATAFILE);
         if (!res_import_machines) {
-            std::cerr << "Error importing machines: " << res_import_machines.error().msg << std::endl;
+            std::cerr << "Error importing buildings: " << res_import_machines.error().msg << std::endl;
             return res_import_machines.error().code;
         }
     }
 
-    // {
-    //     auto res_import_recipes = silver::engine::data::import_recipes(recipe_table, DATAFILE);
-    //     if (!res_import_recipes) {
-    //         std::cerr << "Error importing recipes: " << res_import_recipes.error().msg << std::endl;
-    //         return res_import_recipes.error().code;
-    //     }
-    // }
-
+    {
+        auto res_import_recipes = silver::engine::data::import_recipes(recipe_table, item_table, category_stringtable, DATAFILE);
+        if (!res_import_recipes) {
+            std::cerr << "Error importing recipes: " << res_import_recipes.error().msg << std::endl;
+            return res_import_recipes.error().code;
+        }
+    }
 
     return 0;
 }

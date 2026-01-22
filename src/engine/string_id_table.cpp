@@ -13,7 +13,7 @@ std::uint32_t StringIdTable::intern(std::string_view str) {
         return it->second;
     }
 
-    std::uint32_t id = static_cast<std::uint32_t>(id_to_str_.size());
+    auto id = static_cast<std::uint32_t>(id_to_str_.size());
     id_to_str_.emplace_back(str);
     str_to_id_.emplace(id_to_str_.back(), id);
     return id;

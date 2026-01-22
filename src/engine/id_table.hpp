@@ -56,6 +56,10 @@ namespace silver::engine {
             return &id_to_T_[id];
         }
 
+        std::expected<const T*, err::Error> get_obj(std::string_view key_name) const {
+            return get_obj(find(key_name));
+        }
+
         size_t entry_count() const {
             return id_to_T_.size();
         }

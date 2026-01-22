@@ -5,9 +5,9 @@
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+#include "id_table.hpp"
 
 namespace silver::engine {
-constexpr std::uint32_t INVALID_ID = 0;
 
 class StringIdTable {
 public:
