@@ -3,17 +3,19 @@
 #include "item.hpp"
 #include "machine.hpp"
 
-namespace silver::engine {
+namespace silver {
     using RecipeId = std::uint32_t;
+    using RecipeCategory = std::string;
+    using CategoryId = std::uint32_t;
 
     struct Recipe {
         std::string key_name;
         RecipeId id;
         std::string name;
-        MachineId machine;
+        CategoryId category;
         std::uint32_t time;
         std::vector<std::pair<ItemId, std::uint32_t>> ingredients;
         std::vector<std::pair<ItemId, std::uint32_t>> products;
     };
 
-} // namespace silver::engine
+}

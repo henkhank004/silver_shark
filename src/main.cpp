@@ -5,21 +5,34 @@
 
 int main() {
     silver::engine::IdTable<silver::Item> item_table;
+    silver::engine::IdTable<silver::Machine> machine_table;
 
-    auto res_import_items = silver::engine::data::import_items(item_table, DATAFILE);
-    if (!res_import_items) {
-        std::cerr << "Error importing items: " << res_import_items.error().msg << std::endl;
-        return res_import_items.error().code;
+    silver::engine::IdTable<silver::Recipe> recipe_table;
+
+    {
+        auto res_import_items = silver::engine::data::import_items(item_table, DATAFILE);
+        if (!res_import_items) {
+            std::cerr << "Error importing items: " << res_import_items.error().msg << std::endl;
+            return res_import_items.error().code;
+        }
     }
 
-    auto res = item_table.get_obj(1);
-    if (!res) {
-        std::cerr << "Error in get_obj: " << res.error().msg << std::endl;
-        return res.error().code;
+    {
+        auto res_import_machines = silver::engine::data::import_machines(machine_table, DATAFILE);
+        if (!res_import_machines) {
+            std::cerr << "Error importing machines: " << res_import_machines.error().msg << std::endl;
+            return res_import_machines.error().code;
+        }
     }
-    const silver::Item* it = res.value();
 
-    std::cout << it->name << " (" << it->key_name << ", " << it->id << ")" << std::endl;
+    // {
+    //     auto res_import_recipes = silver::engine::data::import_recipes(recipe_table, DATAFILE);
+    //     if (!res_import_recipes) {
+    //         std::cerr << "Error importing recipes: " << res_import_recipes.error().msg << std::endl;
+    //         return res_import_recipes.error().code;
+    //     }
+    // }
+
 
     return 0;
 }

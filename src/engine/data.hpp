@@ -10,6 +10,6 @@ namespace silver::engine::data {
 
     std::expected<void, err::Error> import_items(IdTable<Item>& table, std::string_view filepath);
     std::expected<void, err::Error> import_machines(IdTable<Machine>& table, std::string_view filepath);
-    std::expected<void, err::Error> import_recipes(IdTable<Recipe>& table, std::string_view filepath);
+    std::expected<void, err::Error> import_recipes(IdTable<Recipe>& table, const IdTable<Machine>& machines_table, std::string_view filepath);
 
 }
