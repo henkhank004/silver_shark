@@ -81,7 +81,7 @@ std::expected<void, err::Error> silver::engine::data::import_items(IdTable<Item>
     return {};
 }
 
-std::expected<void, err::Error> silver::engine::data::import_machines(IdTable<Machine>& table, const std::string_view filepath) {
+std::expected<void, err::Error> silver::engine::data::import_machines(IdTable<Machine>& table, StringIdTable& recipe_stringtable, const std::string_view filepath) {
     simdjson::ondemand::parser parser;
 
     auto json = simdjson::padded_string::load(std::string(filepath));

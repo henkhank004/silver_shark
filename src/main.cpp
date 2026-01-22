@@ -4,10 +4,10 @@
 #define DATAFILE "/home/daan/CLionProjects/silver_shark/src/data/data.json"
 
 int main() {
-    silver::engine::IdTable<silver::Item> item_table;
-    silver::engine::IdTable<silver::Machine> machine_table;
-
-    silver::engine::IdTable<silver::Recipe> recipe_table;
+    silver::engine::IdTable<silver::Item>       item_table;
+    silver::engine::IdTable<silver::Machine>    machine_table;
+    silver::engine::StringIdTable               category_stringtable;
+    silver::engine::IdTable<silver::Recipe>     recipe_table;
 
     {
         auto res_import_items = silver::engine::data::import_items(item_table, DATAFILE);
@@ -18,7 +18,7 @@ int main() {
     }
 
     {
-        auto res_import_machines = silver::engine::data::import_machines(machine_table, DATAFILE);
+        auto res_import_machines = silver::engine::data::import_machines(machine_table, category_stringtable, DATAFILE);
         if (!res_import_machines) {
             std::cerr << "Error importing machines: " << res_import_machines.error().msg << std::endl;
             return res_import_machines.error().code;
