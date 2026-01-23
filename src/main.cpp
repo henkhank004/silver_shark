@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
                 "Failed to load data",
                 QString::fromStdString(game_data_res.error().msg)
             );
-            std::cerr << game_data_res.error().msg << std::endl;
+            qDebug() << "Running in DEBUG mode";
             return game_data_res.error().code;
         }
 
