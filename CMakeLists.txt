@@ -1,17 +1,38 @@
-cmake_minimum_required(VERSION 4.1)
-project(silver_shark)
+cmake_minimum_required(VERSION 3.26)
 
-set(CMAKE_CXX_STANDARD 26)
+project(silver_shark LANGUAGES CXX)
 
-add_executable(silver_shark src/main.cpp
-        src/engine/item.hpp
-        src/engine/data.hpp
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_AUTOMOC ON)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(simdjson REQUIRED)
+
+add_executable(silver_shark
+        src/main.cpp
         src/engine/data.cpp
-        src/error/error.hpp
-        src/engine/id_table.hpp
-        src/engine/recipe.hpp
-        src/engine/machine.hpp
-        src/engine/string_id_table.cpp)
+        src/engine/string_id_table.cpp
+        src/engine/graph/graph.cpp
+        src/ui/main_window.hpp
+        src/ui/main_window.cpp
+        src/engine/graph/nodes.hpp
+        src/engine/graph/graph.hpp
+        src/ui/graph/machine_node_item.cpp
+        src/ui/graph/machine_node_item.hpp
+        src/ui/graph/port_direction.hpp
+        src/ui/graph/port_item.cpp
+        src/ui/graph/port_item.hpp
+)
 
-target_include_directories(silver_shark PRIVATE /usr/include)
-target_link_libraries(silver_shark PRIVATE simdjson)
+target_include_directories(silver_shark
+        PRIVATE
+        src
+)
+
+target_link_libraries(silver_shark
+        PRIVATE
+        Qt6::Widgets
+        simdjson::simdjson
+)

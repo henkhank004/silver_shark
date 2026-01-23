@@ -4,6 +4,33 @@
 #include <string>
 
 
+std::expected<silver::engine::data::GameData, err::Error> silver::engine::data::load_game_data(const std::string_view path) {
+    IdTable<Item>       item_table;
+    IdTable<Machine>    machine_table;
+    StringIdTable       category_stringtable;
+    IdTable<Recipe>     recipe_table;
+
+    auto import_items_res = import_items(item_table, path);
+    if (!import_items_res)
+        return std::unexpected(import_items_res.error());
+
+    auto import_machines_res = import_buildings(machine_table, category_stringtable, path);
+    if (!import_machines_res)
+        return std::unexpected(import_machines_res.error());
+
+    auto import_recipes_res = import_recipes(recipe_table, item_table, category_stringtable, path);
+    if (!import_recipes_res)
+        return std::unexpected(import_recipes_res.error());
+
+    return GameData{
+        std::move(item_table),
+        std::move(machine_table),
+        std::move(recipe_table),
+        std::move(category_stringtable)
+    };
+}
+
+
 std::expected<void, err::Error> silver::engine::data::import_items(IdTable<Item>& table, const std::string_view filepath) {
     simdjson::dom::parser parser;
     simdjson::dom::element doc;
@@ -62,7 +89,7 @@ std::expected<void, err::Error> silver::engine::data::import_items(IdTable<Item>
 }
 
 
-std::expected<void, err::Error> silver::engine::data::import_buildings(IdTable<Machine>& table, StringIdTable& recipe_stringtable, const std::string_view filepath) {
+std::expected<void, err::Error> silver::engine::data::import_buildings(IdTable<Machine>& table, StringIdTable& category_stringtable, const std::string_view filepath) {
     simdjson::dom::parser parser;
     simdjson::dom::element doc;
 
@@ -105,7 +132,7 @@ std::expected<void, err::Error> silver::engine::data::import_buildings(IdTable<M
                 err::JSON_PARSE_FAILED,
                 "Could not parse category from " + std::string(key_name)
             });
-        auto category = recipe_stringtable.intern(category_str);
+        auto category = category_stringtable.intern(category_str);
 
         std::int64_t power_val = 0;
         if (obj["power"].get(power_val)) {
@@ -160,7 +187,7 @@ std::expected<void, err::Error> silver::engine::data::import_buildings(IdTable<M
                 "Could not parse category from " + std::string(key_name)
             });
         }
-        auto category = recipe_stringtable.intern(category_str);
+        auto category = category_stringtable.intern(category_str);
 
         std::int64_t power_val = 0;
         if (obj["power"].get(power_val)) {
@@ -184,7 +211,7 @@ std::expected<void, err::Error> silver::engine::data::import_buildings(IdTable<M
 }
 
 
-std::expected<void, err::Error> silver::engine::data::import_recipes(IdTable<Recipe>& table, const IdTable<Item>& item_table, StringIdTable& recipe_stringtable, const std::string_view filepath) {
+std::expected<void, err::Error> silver::engine::data::import_recipes(IdTable<Recipe>& table, const IdTable<Item>& item_table, StringIdTable& category_stringtable, const std::string_view filepath) {
     simdjson::dom::parser parser;
     simdjson::dom::element doc;
 
@@ -223,7 +250,7 @@ std::expected<void, err::Error> silver::engine::data::import_recipes(IdTable<Rec
                 err::JSON_PARSE_FAILED,
                 "Could not parse category from " + std::string(key_name)
             });
-        auto category = recipe_stringtable.intern(category_str);
+        auto category = category_stringtable.intern(category_str);
 
         double time_val = 0.0;
         if (obj["time"].get(time_val))
@@ -328,7 +355,7 @@ std::expected<void, err::Error> silver::engine::data::import_recipes(IdTable<Rec
                 err::JSON_PARSE_FAILED,
                 "Could not parse category from " + std::string(key_name)
             });
-        auto category = recipe_stringtable.intern(category_str);
+        auto category = category_stringtable.intern(category_str);
         std::vector<std::pair<std::uint32_t, float>> products;
         products.emplace_back(std::pair{item_table.find(key_name), 1.0f});
 

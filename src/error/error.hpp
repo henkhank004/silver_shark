@@ -2,6 +2,8 @@
 
 #include <string>
 
+#define DEBUG(expr)
+
 namespace err {
     enum ErrorCode {
         OK = 0,

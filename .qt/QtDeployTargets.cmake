@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_silver_shark_FILE /home/daan/CLionProjects/silver_shark/silver_shark)
+set(__QT_DEPLOY_TARGET_silver_shark_TYPE EXECUTABLE)
