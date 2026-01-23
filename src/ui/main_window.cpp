@@ -1,7 +1,10 @@
 #include "main_window.hpp"
 
+#include <iostream>
 
-silver::ui::MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), view_(new GraphView(this)), scene_(new QGraphicsScene(this)), settings_button_(new QPushButton(this)) {
+
+silver::ui::MainWindow::MainWindow(const engine::data::GameData* game_data, QWidget* parent)
+    : QMainWindow(parent), view_(new GraphView(this)), scene_(new QGraphicsScene(this)), settings_button_(new QPushButton(this)) {
     scene_->setSceneRect(-2000, -2000, 4000, 4000);
     scene_->setBackgroundBrush(QColor(40, 40, 40));
 
@@ -33,7 +36,12 @@ silver::ui::MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), view_
 #endif
 
     // TEMP: add one template node
-    auto* node = new graph::MachineNodeItem();
+    auto recipe_res = game_data->recipes.get_obj(136);
+    if (!recipe_res) {
+        std::cerr << "Failed to load recipe in initializing example node: " << recipe_res.error().msg << std::endl;
+        exit(recipe_res.error().code);
+    }
+    auto* node = new graph::MachineNodeItem(game_data, recipe_res.value());
     node->setPos(100, 100);
     scene_->addItem(node);
 

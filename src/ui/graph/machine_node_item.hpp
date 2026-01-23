@@ -2,7 +2,12 @@
 
 #include <QGraphicsItem>
 #include <qpainter.h>
+#include <QLineEdit>
+#include <QGraphicsProxyWidget>
+
 #include "../graph_view.hpp"
+#include "../float_input_widget.hpp"
+#include "engine/data.hpp"
 
 namespace silver::ui::graph {
 
@@ -11,18 +16,24 @@ namespace silver::ui::graph {
 
     class MachineNodeItem : public QGraphicsItem {
     public:
-        MachineNodeItem();
+        MachineNodeItem(const engine::data::GameData* game_data, const Recipe* recipe, QGraphicsItem* parent = nullptr);
+        ~MachineNodeItem();
 
         QRectF boundingRect() const override;
         void paint(QPainter* p, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 
-        static constexpr qreal WIDTH  = 6 * GraphView::GRID_SIZE;
+        static constexpr qreal WIDTH  = 4 * GraphView::GRID_SIZE;
         static constexpr qreal HEIGHT = 4 * GraphView::GRID_SIZE;
 
     private:
-        int input_count_  = 2;
-        int output_count_ = 2;
+        const engine::data::GameData* game_data_;
+        const Recipe* recipe_;
 
+        std::uint32_t input_count_;
+        std::uint32_t output_count_;
+
+        QGraphicsProxyWidget* proxy_widget_;
+        FloatInputWidget* input_widget_;
         std::vector<PortItem*> input_ports_;
         std::vector<PortItem*> output_ports_;
 

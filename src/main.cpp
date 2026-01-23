@@ -13,8 +13,7 @@ int main(int argc, char** argv) {
 
     QApplication app(argc, argv);
 
-        auto game_data_res =
-            silver::engine::data::load_game_data(DATAFILE);
+        auto game_data_res =silver::engine::data::load_game_data(DATAFILE);
 
         if (!game_data_res) {
             QMessageBox::critical(
@@ -25,10 +24,10 @@ int main(int argc, char** argv) {
             return game_data_res.error().code;
         }
 
-        silver::engine::data::GameData game_data = std::move(*game_data_res);
+        const silver::engine::data::GameData game_data = std::move(*game_data_res);
 
-        silver::ui::MainWindow window;
-        window.show();
+        auto* window = new silver::ui::MainWindow(&game_data);
+        window->show();
 
         return app.exec();
 }

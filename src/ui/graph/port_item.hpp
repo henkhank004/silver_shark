@@ -9,7 +9,9 @@ namespace silver::ui::graph {
 
     class PortItem : public QGraphicsItem {
     public:
-        PortItem(PortDirection direction, std::uint32_t index, std::uint32_t sister_ports_count, MachineNodeItem* parent = nullptr);
+        static constexpr qreal WIDTH = GraphView::GRID_SIZE;
+
+        PortItem(const engine::data::GameData* game_data, PortDirection direction, const Recipe* recipe, std::uint32_t index, std::uint32_t sister_ports_count, MachineNodeItem* parent = nullptr);
 
         QRectF boundingRect() const override;
         void paint(QPainter* p, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
@@ -19,14 +21,14 @@ namespace silver::ui::graph {
         void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
     private:
+        const engine::data::GameData* game_data_;
+        const Recipe* recipe_;
         MachineNodeItem* owning_machine_node_;
         PortDirection direction_;
         std::uint32_t index_;
         std::uint32_t sister_ports_count_;
 
         bool hovered_ = false;
-
-        static constexpr qreal width_ = 60.0;
     };
 
 }

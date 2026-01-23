@@ -26,6 +26,8 @@ add_executable(silver_shark
         src/ui/graph/port_item.hpp
         src/ui/graph_view.cpp
         src/ui/graph_view.hpp
+        src/ui/float_input_widget.cpp
+        src/ui/float_input_widget.hpp
 )
 
 target_include_directories(silver_shark

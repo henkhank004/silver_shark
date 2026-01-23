@@ -15,7 +15,7 @@ namespace silver::ui {
     class MainWindow : public QMainWindow {
         Q_OBJECT
     public:
-        explicit MainWindow(QWidget* parent = nullptr);
+        MainWindow(const engine::data::GameData* game_data, QWidget* parent = nullptr);
 
     protected:
         void resizeEvent(QResizeEvent* event) override;
