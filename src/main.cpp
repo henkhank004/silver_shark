@@ -7,11 +7,11 @@
 #define DATAFILE "/home/daan/silver_shark/src/data/data.json"
 
 int main(int argc, char** argv) {
-        QApplication app(argc, argv);
-
 #ifndef NDEBUG
     std::cout << "Running in debug mode." << std::endl;
 #endif
+
+    QApplication app(argc, argv);
 
         auto game_data_res =
             silver::engine::data::load_game_data(DATAFILE);
