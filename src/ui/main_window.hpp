@@ -1,10 +1,14 @@
 #pragma once
 
 #include <QMainWindow>
-#include "graph/machine_node_item.hpp"
+#include <QPushButton>
+#include <QLabel>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 
-class QGraphicsView;
-class QGraphicsScene;
+#include "graph/machine_node_item.hpp"
+#include "graph_view.hpp"
+
 
 namespace silver::ui {
 
@@ -13,9 +17,16 @@ namespace silver::ui {
     public:
         explicit MainWindow(QWidget* parent = nullptr);
 
+    protected:
+        void resizeEvent(QResizeEvent* event) override;
+
     private:
-        QGraphicsView*  view_;
+        GraphView*  view_;
         QGraphicsScene* scene_;
+        QPushButton* settings_button_;
+#ifndef NDEBUG
+        QLabel* debug_label_;
+#endif
     };
 
 }

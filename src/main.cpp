@@ -4,7 +4,7 @@
 #include "engine/data.hpp"
 #include "ui/main_window.hpp"
 
-#define DATAFILE "/home/daan/CLionProjects/silver_shark/src/data/data.json"
+#define DATAFILE "/home/daan/silver_shark/src/data/data.json"
 
 int main(int argc, char** argv) {
         QApplication app(argc, argv);

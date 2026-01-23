@@ -14,7 +14,7 @@ silver::ui::graph::MachineNodeItem::MachineNodeItem() {
 }
 
 QRectF silver::ui::graph::MachineNodeItem::boundingRect() const {
-    return QRectF(0, 0, width, height);
+    return QRectF(0, 0, WIDTH, HEIGHT);
 }
 
 void silver::ui::graph::MachineNodeItem::paint(QPainter* p, const QStyleOptionGraphicsItem*, QWidget*) {
@@ -23,15 +23,15 @@ void silver::ui::graph::MachineNodeItem::paint(QPainter* p, const QStyleOptionGr
     p->drawRect(boundingRect());
 
     p->setPen(Qt::black);
-    p->drawText(QRectF(0, 0, width, 24),
+    p->drawText(QRectF(0, 0, WIDTH, 24),
                 Qt::AlignCenter,
                 "Machine");
 }
 
 void silver::ui::graph::MachineNodeItem::create_ports() {
     constexpr qreal start_y = 0;
-    const qreal spacing_in = height / input_count_;
-    const qreal spacing_out = height / output_count_;
+    const qreal spacing_in = HEIGHT / input_count_;
+    const qreal spacing_out = HEIGHT / output_count_;
 
     for (int i = 0; i < input_count_; ++i) {
         auto* port = new PortItem(PortDirection::Input, i, input_count_, this);
@@ -41,7 +41,7 @@ void silver::ui::graph::MachineNodeItem::create_ports() {
 
     for (int i = 0; i < output_count_; ++i) {
         auto* port = new PortItem(PortDirection::Output, i, output_count_, this);
-        port->setPos(width, start_y + i * spacing_out);
+        port->setPos(WIDTH, start_y + i * spacing_out);
         output_ports_.push_back(port);
     }
 }

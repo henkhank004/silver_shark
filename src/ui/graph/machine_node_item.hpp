@@ -2,6 +2,7 @@
 
 #include <QGraphicsItem>
 #include <qpainter.h>
+#include "../graph_view.hpp"
 
 namespace silver::ui::graph {
 
@@ -15,8 +16,8 @@ namespace silver::ui::graph {
         QRectF boundingRect() const override;
         void paint(QPainter* p, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 
-        static constexpr qreal width  = 180.0;
-        static constexpr qreal height = 120.0;
+        static constexpr qreal WIDTH  = 6 * GraphView::GRID_SIZE;
+        static constexpr qreal HEIGHT = 4 * GraphView::GRID_SIZE;
 
     private:
         int input_count_  = 2;

@@ -24,6 +24,8 @@ add_executable(silver_shark
         src/ui/graph/port_direction.hpp
         src/ui/graph/port_item.cpp
         src/ui/graph/port_item.hpp
+        src/ui/graph_view.cpp
+        src/ui/graph_view.hpp
 )
 
 target_include_directories(silver_shark
