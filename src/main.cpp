@@ -22,7 +22,6 @@ int main(int argc, char** argv) {
                 "Failed to load data",
                 QString::fromStdString(game_data_res.error().msg)
             );
-            qDebug() << "Running in DEBUG mode";
             return game_data_res.error().code;
         }
 
