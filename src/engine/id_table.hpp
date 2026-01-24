@@ -21,8 +21,8 @@ namespace silver::engine {
     class IdTable {
     public:
         IdTable() {
-            // reserve index 0 for invalid entries
             id_to_T_.emplace_back(T{});
+            next_id_++;
         }
 
         std::uint32_t intern(T entry) {
@@ -31,14 +31,13 @@ namespace silver::engine {
                 return it->second;
             }
 
-            const auto id = static_cast<std::uint32_t>(id_to_T_.size());
-
-            entry.id = id;
+            entry.id = next_id_;
             id_to_T_.emplace_back(std::move(entry));
 
-            key_to_id_.emplace(id_to_T_.back().key_name, id);
+            key_to_id_.emplace(id_to_T_.back().key_name, next_id_);
 
-            return id;
+            next_id_++;
+            return next_id_ - 1;
         }
 
         std::uint32_t find(std::string_view key_name) const {
@@ -67,6 +66,8 @@ namespace silver::engine {
     private:
         std::unordered_map<std::string, std::uint32_t> key_to_id_;
         std::vector<T> id_to_T_;
+
+        std::uint32_t next_id_ = 0;
     };
 
 }

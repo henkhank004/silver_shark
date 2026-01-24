@@ -7,6 +7,7 @@
 silver::ui::graph::MachineNodeItem::MachineNodeItem(const engine::data::GameData* game_data, const Recipe* recipe, QGraphicsItem*)
     : game_data_(game_data), recipe_(recipe), proxy_widget_(new QGraphicsProxyWidget(this)) {
     input_widget_ = new FloatInputWidget(WIDTH, GraphView::GRID_SIZE);
+    input_widget_->setToolTip("Desired output");
 
     setFlags(
         ItemIsMovable |
@@ -39,7 +40,6 @@ void silver::ui::graph::MachineNodeItem::paint(QPainter* p, const QStyleOptionGr
 
     p->setPen(Qt::black);
 
-    // TEMP:
     QString name = QString::number(recipe_->id);
 
     p->drawText(QRectF(0, 0, WIDTH, 24), Qt::AlignCenter, name);

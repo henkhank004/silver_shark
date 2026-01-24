@@ -15,6 +15,8 @@ namespace silver::engine::graph {
         NodeId id;
         std::uint32_t recipe_id;
 
+        float primary_output_rate;
+
         std::vector<Port> inputs;
         std::vector<Port> outputs;
     };

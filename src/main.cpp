@@ -24,6 +24,7 @@ int main(int argc, char** argv) {
             return game_data_res.error().code;
         }
 
+
         const silver::engine::data::GameData game_data = std::move(*game_data_res);
 
         auto* window = new silver::ui::MainWindow(&game_data);

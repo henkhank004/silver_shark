@@ -11,9 +11,13 @@ namespace silver::ui::graph {
 
     public:
         FloatInputWidget(int width = 0, int height = 0, QWidget* parent = nullptr);
-        float value;
+        template <typename F>
+        void subscribe(F&& callback) {
+            subscribers.emplace_back(std::forward<F>(callback));
+        }
 
     private:
+        std::vector<std::function<void(float)>> subscribers;
         QLineEdit* line_edit_;
         QTimer* update_timer_;
     };

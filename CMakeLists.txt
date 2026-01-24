@@ -17,7 +17,7 @@ add_executable(silver_shark
         src/engine/graph/graph.cpp
         src/ui/main_window.hpp
         src/ui/main_window.cpp
-        src/engine/graph/nodes.hpp
+        src/engine/graph/node.hpp
         src/engine/graph/graph.hpp
         src/ui/graph/machine_node_item.cpp
         src/ui/graph/machine_node_item.hpp
@@ -28,6 +28,7 @@ add_executable(silver_shark
         src/ui/graph_view.hpp
         src/ui/float_input_widget.cpp
         src/ui/float_input_widget.hpp
+        src/engine/graph/edge.hpp
 )
 
 target_include_directories(silver_shark

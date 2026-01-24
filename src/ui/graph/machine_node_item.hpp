@@ -25,6 +25,9 @@ namespace silver::ui::graph {
         static constexpr qreal WIDTH  = 4 * GraphView::GRID_SIZE;
         static constexpr qreal HEIGHT = 4 * GraphView::GRID_SIZE;
 
+        template<typename F>
+        void subscribe_to_input_widget(F&& callback) { input_widget_->subscribe(std::forward<F>(callback)); }
+
     private:
         const engine::data::GameData* game_data_;
         const Recipe* recipe_;
