@@ -69,7 +69,11 @@ void silver::ui::graph::PortItem::paint(QPainter* p, const QStyleOptionGraphicsI
     p->setBrush(color);
     p->drawRect(boundingRect());
 
+#ifndef NDEBUG
     p->drawText(QRectF(0, 0, WIDTH * 0.8, MachineNodeItem::HEIGHT / sister_ports_count_ * 0.8), Qt::AlignCenter, debug_text_);
+#else
+    p->drawText(QRectF(0, 0, WIDTH * 0.8, MachineNodeItem::HEIGHT / sister_ports_count_ * 0.8), Qt::AlignCenter, "");
+#endif
 
     if (direction_ == PortDirection::Input)
         proxy_widget_->setGeometry(QRectF(-(5 + count_label_->sizeHint().width()), 0, WIDTH, GraphView::GRID_SIZE));
